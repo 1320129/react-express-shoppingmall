@@ -1,12 +1,24 @@
 import React, { useState } from "react";
 import { Typography, Button, Form, Input } from "antd";
+import UpLoadFile from "../../utils/UpLoadFile";
 const { Title } = Typography;
 const { TextArea } = Input;
+
+const Continents = [
+  { key: 1, value: "Africa" },
+  { key: 2, value: "Europe" },
+  { key: 3, value: "Asia" },
+  { key: 4, value: "North America" },
+  { key: 5, value: "South America" },
+  { key: 6, value: "Australia" },
+  { key: 7, value: "Antarctica" },
+];
 
 function UpLoadProductPage() {
   const [InputTitle, setInputTitle] = useState();
   const [InputDesc, setInputDesc] = useState();
   const [InputPrice, setInputPrice] = useState(0);
+  const [Continent, setContinent] = useState(1);
 
   const ChangeTitle = (e) => {
     setInputTitle(e.currentTarget.value);
@@ -17,6 +29,9 @@ function UpLoadProductPage() {
   const ChangePrice = (e) => {
     setInputPrice(e.currentTarget.value);
   };
+  const ChangeContinent = (e) => {
+    setContinent(e.currentTarget.value);
+  };
 
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
@@ -25,6 +40,7 @@ function UpLoadProductPage() {
       </div>
       <Form>
         {/*dropzone*/}
+        <UpLoadFile />
         <br />
         <br />
         <label>이름</label>
@@ -39,8 +55,14 @@ function UpLoadProductPage() {
         <Input type="number" onChange={ChangePrice} value={InputPrice} />
         <br />
         <br />
-        <select>
-          <option value=""></option>
+        <select value={Continent} onChange={ChangeContinent}>
+          {Continents.map((item) => {
+            return (
+              <option value={item.key} key={item.key}>
+                {item.value}
+              </option>
+            );
+          })}
         </select>
         <br />
         <br />
