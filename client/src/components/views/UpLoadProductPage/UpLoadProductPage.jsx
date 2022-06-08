@@ -19,6 +19,7 @@ function UpLoadProductPage() {
   const [InputDesc, setInputDesc] = useState();
   const [InputPrice, setInputPrice] = useState(0);
   const [Continent, setContinent] = useState(1);
+  const [Images, setImages] = useState([]);
 
   const ChangeTitle = (e) => {
     setInputTitle(e.currentTarget.value);
@@ -32,6 +33,10 @@ function UpLoadProductPage() {
   const ChangeContinent = (e) => {
     setContinent(e.currentTarget.value);
   };
+  const ImageUpdateHandler = (image) => {
+    console.log("부모", image);
+    setImages(image);
+  };
 
   return (
     <div style={{ maxWidth: "700px", margin: "2rem auto" }}>
@@ -40,7 +45,7 @@ function UpLoadProductPage() {
       </div>
       <Form>
         {/*dropzone*/}
-        <UpLoadFile />
+        <UpLoadFile ImageUpdate={ImageUpdateHandler} />
         <br />
         <br />
         <label>이름</label>

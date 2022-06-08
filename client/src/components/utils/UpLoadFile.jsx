@@ -3,7 +3,7 @@ import Dropzone from "react-dropzone";
 import { Icon } from "antd";
 import Axios from "axios";
 
-function UpLoadFile() {
+function UpLoadFile(props) {
   const [Images2, setImages2] = useState([]);
   const dropHandler = (files) => {
     let formData = new FormData();
@@ -15,10 +15,19 @@ function UpLoadFile() {
     Axios.post("/api/product/image", formData, config).then((response) => {
       if (response.data.success) {
         setImages2([...Images2, response.data.filePath]);
+        props.ImageUpdate([...Images2, response.data.filePath]);
       } else {
         alert("저장실패");
       }
     });
+  };
+
+  const deleteHandler = (image) => {
+    let currentIndex = Images2.indexOf(image);
+    let newImage = [...Images2];
+    newImage.splice(currentIndex, 1);
+    setImages2(newImage);
+    props.ImageUpdate(newImage);
   };
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -49,10 +58,15 @@ function UpLoadFile() {
         }}
       >
         {Images2.map((image, index) => (
-          <div key={index}>
+          <div
+            onClick={() => {
+              deleteHandler(image);
+            }}
+            key={index}
+          >
             <img
               style={{ minWidth: "300px", width: "300px", height: "240px" }}
-              src={`http://localhost:3000/${image}`}
+              src={`http://localhost:5000/${image}`}
             ></img>
           </div>
         ))}
