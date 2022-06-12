@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Typography, Button, Form, Input } from "antd";
 import UpLoadFile from "../../utils/UpLoadFile";
+import Axios from "axios";
 const { Title } = Typography;
 const { TextArea } = Input;
 
@@ -14,7 +15,7 @@ const Continents = [
   { key: 7, value: "Antarctica" },
 ];
 
-function UpLoadProductPage() {
+function UpLoadProductPage(props) {
   const [InputTitle, setInputTitle] = useState();
   const [InputDesc, setInputDesc] = useState();
   const [InputPrice, setInputPrice] = useState(0);
@@ -34,8 +35,30 @@ function UpLoadProductPage() {
     setContinent(e.currentTarget.value);
   };
   const ImageUpdateHandler = (image) => {
-    console.log("부모", image);
     setImages(image);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (!InputTitle || !InputDesc || !InputPrice || !Continent || !Images) {
+      alert("데이터 값을 모두 입력해주세요!");
+    }
+    let body = {
+      writer: props.user.userData._id,
+      title: InputTitle,
+      description: InputDesc,
+      price: InputPrice,
+      images: Images,
+      continents: Continent,
+    };
+    Axios.post("/api/product", body).then((response) => {
+      if (response.data.success) {
+        alert("등록이 완료 되었습니다.");
+        props.history.push("/");
+      } else {
+        alert("오류가 발생되었습니다.");
+      }
+    });
   };
 
   return (
@@ -43,7 +66,7 @@ function UpLoadProductPage() {
       <div style={{ textAlign: "center", marginbottom: "2rem" }}>
         <Title level={2}>여행 상품 업로드</Title>
       </div>
-      <Form>
+      <Form onSubmit={submitHandler}>
         {/*dropzone*/}
         <UpLoadFile ImageUpdate={ImageUpdateHandler} />
         <br />
@@ -71,7 +94,9 @@ function UpLoadProductPage() {
         </select>
         <br />
         <br />
-        <Button>확인</Button>
+        <Button type="submit" onClick={submitHandler}>
+          확인
+        </Button>
       </Form>
     </div>
   );
