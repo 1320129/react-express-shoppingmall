@@ -46,7 +46,9 @@ router.post("/products", (req, res) => {
     .limit(req.body.limit)
     .exec((err, productData) => {
       if (err) return res.status(400).json({ success: false, err });
-      return res.status(200).json({ success: true, productData });
+      return res
+        .status(200)
+        .json({ success: true, productData, itemlength: productData.length });
     });
 });
 
