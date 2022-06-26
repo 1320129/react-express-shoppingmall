@@ -4,6 +4,8 @@ import { Icon, Col, Card, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import "../../../index.css";
 import ImageSlider from "../../utils/ImageSlider";
+import continent from "./Filter/data";
+import CheckBoxSection from "./Filter/CheckBoxSection";
 
 function LandingPage() {
   const [Product, setProduct] = useState([]);
@@ -64,6 +66,7 @@ function LandingPage() {
           </h2>
         </div>
         {/* 필터 */}
+        <CheckBoxSection list={continent} />
         {/* 서치 */}
         {/* 카드 */}
         <Row gutter={(16, 16)}>{renderCards}</Row>
