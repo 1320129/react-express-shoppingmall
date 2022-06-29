@@ -13,19 +13,17 @@ function CheckBoxSection(props) {
     if (current === -1) {
       newChecked.push(index);
     } else {
-      console.log(current);
       newChecked.splice(current, 1);
     }
     setCheck(newChecked);
-    // console.log(Check);
-    console.log(newChecked);
+    props.handlerFilter(newChecked);
   };
   const CheckboxRender = props.list.map((item) => {
     return (
       <Checkbox
         key={item.id}
         onChange={() => toggleHandler(item.id)}
-        checked={false}
+        checked={Check.indexOf(item.id) === -1 ? false : true}
       >
         {item.name}
       </Checkbox>

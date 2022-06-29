@@ -48,6 +48,7 @@ function LandingPage() {
     productReq(body);
     setSkip(skip);
   };
+  //카드 렌더 함수
   const renderCards = Product.map((product, index) => {
     return (
       <Col lg={6} md={8} xs={24} key={index}>
@@ -57,6 +58,10 @@ function LandingPage() {
       </Col>
     );
   });
+  //
+  const handlerFilter = (e) => {
+    console.log(e);
+  };
   return (
     <>
       <div style={{ width: "75%", margin: "3rem auto" }}>
@@ -66,7 +71,10 @@ function LandingPage() {
           </h2>
         </div>
         {/* 필터 */}
-        <CheckBoxSection list={continent} />
+        <CheckBoxSection
+          list={continent}
+          handlerFilter={(filter) => handlerFilter(filters, "continents")}
+        />
         {/* 서치 */}
         {/* 카드 */}
         <Row gutter={(16, 16)}>{renderCards}</Row>
