@@ -52,6 +52,8 @@ router.post("/products", (req, res) => {
       }
     }
   }
+
+  findArgs = { title: { $search: req.body.SearchText } };
   console.log(findArgs);
   Product.find(findArgs)
     .populate("writer")

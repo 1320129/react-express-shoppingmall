@@ -7,6 +7,7 @@ import ImageSlider from "../../utils/ImageSlider";
 import { continent, price } from "./Filter/data";
 import CheckBoxSection from "./Filter/CheckBoxSection";
 import RadioBoxSection from "./Filter/RadioBoxSection";
+import SearchInput from "./Filter/SearchInput";
 
 function LandingPage() {
   const [Product, setProduct] = useState([]);
@@ -91,9 +92,17 @@ function LandingPage() {
       let priceValue = handlePrice(filters);
       newFilters[category] = priceValue;
     }
-    console.log(newFilters);
     setFilters(newFilters);
     showFilterResult(newFilters);
+  };
+  //검색 핸들러
+  const handlerInput = (SearchText) => {
+    let body = {
+      skip: 0,
+      limit: Limit,
+      SearchText: SearchText,
+    };
+    productReq(body);
   };
 
   //ui화면
@@ -117,6 +126,9 @@ function LandingPage() {
           />
         </div>
         {/* 서치 */}
+        <div>
+          <SearchInput handlerInput={handlerInput} />
+        </div>
         {/* 카드 */}
         <Row gutter={(16, 16)}>{renderCards}</Row>
 

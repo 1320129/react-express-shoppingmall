@@ -15,13 +15,13 @@ function RadioBoxSection(props) {
   const radioRender = props.list.map((item, index) => {
     return (
       <Radio.Button value={item.price} key={index}>
-        {item.price}
+        {item.price + " 미만"}
       </Radio.Button>
     );
   });
   return (
     <Collapse defaultActiveKey={["2"]} style={{ flex: "0 0 50%" }}>
-      <Panel header="This is panel header 2" key="2">
+      <Panel header="가격 정렬" key="2">
         <Radio.Group
           defaultValue="a"
           buttonStyle="solid"
