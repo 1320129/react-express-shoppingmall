@@ -30,7 +30,7 @@ function CheckBoxSection(props) {
     );
   });
   return (
-    <Collapse defaultActiveKey={["1"]}>
+    <Collapse defaultActiveKey={["1"]} style={{ flex: "0 0 50%" }}>
       <Panel header="This is panel header 1" key="1">
         {CheckboxRender}
       </Panel>

@@ -40,7 +40,20 @@ router.post("/", (req, res) => {
 });
 
 router.post("/products", (req, res) => {
-  Product.find()
+  let findArgs = {};
+  for (let key in req.body.filters) {
+    if (req.body.filters[key].length > 0) {
+      if (key === "price") {
+        findArgs[key] = {
+          $lte: req.body.filters[key][0],
+        };
+      } else {
+        findArgs[key] = req.body.filters[key];
+      }
+    }
+  }
+  console.log(findArgs);
+  Product.find(findArgs)
     .populate("writer")
     .skip(req.body.skip)
     .limit(req.body.limit)

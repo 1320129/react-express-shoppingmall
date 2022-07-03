@@ -1,4 +1,4 @@
-const continent = [
+export const continent = [
   { id: 1, name: "Africa" },
   { id: 2, name: "Europe" },
   { id: 3, name: "Asia" },
@@ -8,4 +8,9 @@ const continent = [
   { id: 7, name: "Antarctica" },
 ];
 
-export default continent;
+export const price = [
+  { price: 10 },
+  { price: 100 },
+  { price: 1000 },
+  { price: 10000 },
+];
