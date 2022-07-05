@@ -40,31 +40,52 @@ router.post("/", (req, res) => {
 });
 
 router.post("/products", (req, res) => {
+  let limit = req.body.limit ? parseInt(req.body.limit) : 20;
+  let skip = req.body.skip ? parseInt(req.body.skip) : 0;
+  let term = req.body.searchTerm;
+
   let findArgs = {};
+
   for (let key in req.body.filters) {
     if (req.body.filters[key].length > 0) {
+      console.log("key", key);
+
       if (key === "price") {
         findArgs[key] = {
-          $lte: req.body.filters[key][0],
+          //Greater than equal
+          $gte: req.body.filters[key][0],
+          //Less than equal
+          $lte: req.body.filters[key][1],
         };
       } else {
         findArgs[key] = req.body.filters[key];
       }
     }
   }
-
-  findArgs = { title: { $search: req.body.SearchText } };
-  console.log(findArgs);
-  Product.find(findArgs)
-    .populate("writer")
-    .skip(req.body.skip)
-    .limit(req.body.limit)
-    .exec((err, productData) => {
-      if (err) return res.status(400).json({ success: false, err });
-      return res
-        .status(200)
-        .json({ success: true, productData, itemlength: productData.length });
-    });
+  if (term) {
+    Product.find(findArgs)
+      .find({ $text: { $search: term } })
+      .populate("writer")
+      .skip(skip)
+      .limit(limit)
+      .exec((err, productData) => {
+        if (err) return res.status(400).json({ success: false, err });
+        return res
+          .status(200)
+          .json({ success: true, productData, itemlength: productData.length });
+      });
+  } else {
+    Product.find(findArgs)
+      .populate("writer")
+      .skip(skip)
+      .limit(limit)
+      .exec((err, productData) => {
+        if (err) return res.status(400).json({ success: false, err });
+        return res
+          .status(200)
+          .json({ success: true, productData, itemlength: productData.length });
+      });
+  }
 });
 
 module.exports = router;

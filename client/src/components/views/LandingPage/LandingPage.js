@@ -18,6 +18,7 @@ function LandingPage() {
     continents: [],
     price: [],
   });
+  const [SearchTerm, setSearchTerm] = useState("");
   //useeffet
   useEffect(() => {
     let body = {
@@ -71,6 +72,7 @@ function LandingPage() {
       limit: Limit,
       filters: filters,
     };
+    setFilters(filters);
     productReq(body);
     setSkip(0);
   };
@@ -100,8 +102,11 @@ function LandingPage() {
     let body = {
       skip: 0,
       limit: Limit,
-      SearchText: SearchText,
+      filters: Filters,
+      SearchTerm: SearchText,
     };
+    setSearchTerm(SearchText);
+    setSkip(0);
     productReq(body);
   };
 
