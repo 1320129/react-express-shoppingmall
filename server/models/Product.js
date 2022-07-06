@@ -45,7 +45,7 @@ productSchema.index(
   },
   {
     weights: {
-      title: 5,
+      title: 10,
       description: 1,
     },
   }
