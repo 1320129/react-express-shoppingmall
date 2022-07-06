@@ -40,13 +40,13 @@ router.post("/", (req, res) => {
 });
 
 router.post("/sss", (req, res) => {
-  const product = new Product(req.body);
-  product
-    .find()
+  Product.find()
     .populate("writer")
-    .exec((err, data) => {
+    .exec((err, productData) => {
       if (err) return res.status(400).json({ success: false, err });
-      return res.status(200).json({ success: true, data });
+      return res
+        .status(200)
+        .json({ success: true, productData, itemlength: productData.length });
     });
 });
 

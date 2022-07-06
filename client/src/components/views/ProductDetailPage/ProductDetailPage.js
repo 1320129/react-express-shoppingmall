@@ -4,14 +4,18 @@ import { useEffect } from "react";
 
 function ProductDetailPage() {
   const getProductInfo = () => {
-    Axios.post("api/product/sss").then((response) => {
-      console.log(response.data);
+    Axios.post("/sss").then((response) => {
+      if (response.data.success) {
+        console.log(response.data);
+      } else {
+        alert("실패");
+      }
     });
   };
 
   useEffect(() => {
     getProductInfo();
-  });
+  }, []);
   return <div></div>;
 }
 
