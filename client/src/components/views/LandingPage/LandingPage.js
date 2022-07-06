@@ -59,9 +59,11 @@ function LandingPage() {
   const renderCards = Product.map((product, index) => {
     return (
       <Col lg={6} md={8} xs={24} key={index}>
-        <Card cover={<ImageSlider images={product.images} />}>
-          <Meta title={product.title} description={product.price} />
-        </Card>
+        <a href={`/product/${product._id}`}>
+          <Card cover={<ImageSlider images={product.images} />}>
+            <Meta title={product.title} description={product.price} />
+          </Card>
+        </a>
       </Col>
     );
   });
@@ -131,7 +133,13 @@ function LandingPage() {
           />
         </div>
         {/* 서치 */}
-        <div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+            margin: "16px 0",
+          }}
+        >
           <SearchInput handlerInput={handlerInput} />
         </div>
         {/* 카드 */}

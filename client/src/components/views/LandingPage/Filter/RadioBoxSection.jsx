@@ -20,7 +20,7 @@ function RadioBoxSection(props) {
     );
   });
   return (
-    <Collapse defaultActiveKey={["2"]} style={{ flex: "0 0 50%" }}>
+    <Collapse defaultActiveKey={["0"]} style={{ flex: "0 0 50%" }}>
       <Panel header="가격 정렬" key="2">
         <Radio.Group
           defaultValue="a"

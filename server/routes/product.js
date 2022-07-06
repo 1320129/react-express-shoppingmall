@@ -39,6 +39,17 @@ router.post("/", (req, res) => {
   });
 });
 
+router.post("/sss", (req, res) => {
+  const product = new Product(req.body);
+  product
+    .find()
+    .populate("writer")
+    .exec((err, data) => {
+      if (err) return res.status(400).json({ success: false, err });
+      return res.status(200).json({ success: true, data });
+    });
+});
+
 router.post("/products", (req, res) => {
   let limit = req.body.limit ? parseInt(req.body.limit) : 20;
   let skip = req.body.skip ? parseInt(req.body.skip) : 0;

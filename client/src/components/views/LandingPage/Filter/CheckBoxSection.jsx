@@ -30,7 +30,7 @@ function CheckBoxSection(props) {
     );
   });
   return (
-    <Collapse defaultActiveKey={["1"]} style={{ flex: "0 0 50%" }}>
+    <Collapse defaultActiveKey={["0"]} style={{ flex: "0 0 50%" }}>
       <Panel header="나라별 정렬" key="1">
         {CheckboxRender}
       </Panel>
