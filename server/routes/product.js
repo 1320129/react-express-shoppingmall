@@ -39,17 +39,6 @@ router.post("/", (req, res) => {
   });
 });
 
-router.post("/sss", (req, res) => {
-  Product.find()
-    .populate("writer")
-    .exec((err, productData) => {
-      if (err) return res.status(400).json({ success: false, err });
-      return res
-        .status(200)
-        .json({ success: true, productData, itemlength: productData.length });
-    });
-});
-
 router.post("/products", (req, res) => {
   let limit = req.body.limit ? parseInt(req.body.limit) : 20;
   let skip = req.body.skip ? parseInt(req.body.skip) : 0;
@@ -80,7 +69,6 @@ router.post("/products", (req, res) => {
           .status(200)
           .json({ success: true, productData, itemlength: productData.length });
       });
-    console.log(term);
   } else {
     Product.find(findArgs)
       .populate("writer")
