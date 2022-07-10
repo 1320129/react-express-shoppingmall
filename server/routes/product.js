@@ -83,4 +83,15 @@ router.post("/products", (req, res) => {
   }
 });
 
+router.get("/products_id", (req, res) => {
+  let products_id = req.query.id;
+  console.log(products_id);
+  Product.find({ _id: products_id })
+    .populate("writer")
+    .exec((err, product) => {
+      if (err) return res.status(400).json(err);
+      return res.status(200).json({ success: true, product });
+    });
+});
+
 module.exports = router;
