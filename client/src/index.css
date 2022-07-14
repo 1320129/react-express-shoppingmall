@@ -43,7 +43,16 @@ input.error {
 
 .pr-detail-area {
   display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  padding: 0 20px;
 }
 .image-gallery-area {
   flex: 0 0 50%;
+}
+.pr-info-area {
+  display: flex;
+  flex: 0 0 50%;
+  justify-content: center;
+  flex-wrap: wrap;
 }
