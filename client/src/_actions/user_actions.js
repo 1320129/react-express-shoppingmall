@@ -52,9 +52,12 @@ export function logoutUser() {
   };
 }
 
-export function addToCart() {
+export function addToCart(userId) {
+  let body = {
+    productId: userId,
+  };
   const request = axios
-    .post(`${USER_SERVER}/addtocart`)
+    .post(`${USER_SERVER}/addtocart`, body)
     .then((response) => response.data);
 
   return {

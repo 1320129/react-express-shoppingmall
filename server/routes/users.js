@@ -56,9 +56,11 @@ router.post("/login", (req, res) => {
   });
 });
 
-router.post("/addtocart", (req, res) => {
+router.post("/addtocart", auth, (req, res) => {
   //user 데이터 베이스에서 해당 유저 찾아내기
-  User.findOne();
+  User.findOne({ _id: req.user._id }, (err, user) => {
+    console.log(user);
+  });
   //가져온 데이터가 이미 있는지 확인
 
   //있다면 해당내용
