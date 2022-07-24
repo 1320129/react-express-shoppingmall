@@ -116,4 +116,11 @@ router.get("/logout", auth, (req, res) => {
   );
 });
 
+router.post("/cart", auth, (req, res) => {
+  User.find({ _id: req.user.id }).exec((err, cartInfo) => {
+    if (err) return res.status(400).json(err);
+    return res.status(200).json({ success: true, cartInfo });
+  });
+});
+
 module.exports = router;
