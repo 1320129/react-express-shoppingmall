@@ -3,6 +3,7 @@ const router = express.Router();
 const { User } = require("../models/User");
 
 const { auth } = require("../middleware/auth");
+const { json } = require("body-parser");
 
 //=================================
 //             User
@@ -70,8 +71,34 @@ router.post("/addtocart", auth, (req, res) => {
 
     //있다면 해당내용
     if (duplecate) {
+      User.findOneAndUpdate(
+        { _id: req.user._id, "cart.id": req.body.productId },
+        { $inc: { "cart.$.quantity": 1 } },
+        { new: true },
+        (err, userInfo) => {
+          if (err) return res.status(400).json({ success: false, err });
+          return res.status(200).send(userInfo.cart);
+        }
+      );
     } else {
       //없다면 해당내용
+      User.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $push: {
+            cart: {
+              id: req.body.productId,
+              quantity: 1,
+              date: Date.now(),
+            },
+          },
+        },
+        { new: true },
+        (err, userInfo) => {
+          if (err) return res.status(400).json({ success: false, err });
+          return res.status(200).send(userInfo.cart);
+        }
+      );
     }
   });
 });
